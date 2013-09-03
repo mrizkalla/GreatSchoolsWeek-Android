@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="app_name">Great Schools Week</string>
+	    <string-array name="nav_array">
+        <item>Search</item>
+        <item>Browse</item>
+        <item>About</item>
+        <item>Events</item>
+        <item>Map</item>
+    </string-array>
+</resources>
