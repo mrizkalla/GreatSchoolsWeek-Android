@@ -3,9 +3,11 @@ package com.the.greatschools;
 import com.the.greatschools.R;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
@@ -111,7 +113,15 @@ public class MainActivity extends Activity {
 
 	private void selectItem(int position) {
 		// update the main content by replacing fragments
+		SearchFragment fragment = new SearchFragment();
+		FragmentManager fragmentManager = getFragmentManager();
+		fragmentManager.beginTransaction()
+				.replace(R.id.content_frame, fragment).commit();
 
+		// update selected item and title, then close the drawer
+		mDrawerList.setItemChecked(position, true);
+		setTitle(mNavTitles[position]);
+		mDrawerLayout.closeDrawer(mDrawerList);
 	}
 	
     @Override
