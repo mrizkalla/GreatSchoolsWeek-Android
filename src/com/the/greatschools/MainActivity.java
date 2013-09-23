@@ -1,5 +1,11 @@
 package com.the.greatschools;
 
+import java.util.Observable;
+import java.util.Observer;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.the.greatschools.R;
 
 import android.app.Activity;
@@ -10,6 +16,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,7 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements Observer {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -27,6 +34,12 @@ public class MainActivity extends Activity {
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
 	private String[] mNavTitles;
+	
+	private BusinessDirectory mBD;
+	
+	public BusinessDirectory getBusinessDirectory() {
+		return mBD;
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +82,10 @@ public class MainActivity extends Activity {
         	}
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        if (savedInstanceState == null) {
-        	selectItem(0);
-        }
+
+        
+        mBD = new BusinessDirectory();
+        mBD.addObserver(this);
 	}
 
 	@Override
@@ -113,7 +127,16 @@ public class MainActivity extends Activity {
 
 	private void selectItem(int position) {
 		// update the main content by replacing fragments
-		SearchFragment fragment = new SearchFragment();
+		Fragment fragment;
+		
+		switch (position) {
+		case 0:
+			fragment = new SearchFragment();
+			break;
+		default:
+			fragment = new SearchFragment();
+		}
+
 		FragmentManager fragmentManager = getFragmentManager();
 		fragmentManager.beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();
@@ -148,6 +171,12 @@ public class MainActivity extends Activity {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
+	@Override
+	public void update(Observable observable, Object data) {
+		// this is where we would take down the splash screen and then call the first fragment
+        selectItem(0);
+	}
 }
 
 
