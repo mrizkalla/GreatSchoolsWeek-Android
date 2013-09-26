@@ -1,14 +1,24 @@
 <resources>
 
     <string name="app_name">Great Schools Week</string>
-	    <string-array name="nav_array">
+
+    <string-array name="nav_array">
         <item>Search</item>
         <item>Browse</item>
         <item>About</item>
         <item>Map</item>
     </string-array>
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_websearch">Web search</string>
     <string name="search_businesses">Search businesses...</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thur</string>
+    <string name="fri">Fri</string>
+    <string name="allsales">All Sales</string>
+    <string name="Notes">Notes</string>
+    
 </resources>

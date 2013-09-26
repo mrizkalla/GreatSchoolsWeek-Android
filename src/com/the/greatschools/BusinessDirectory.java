@@ -24,6 +24,7 @@ public class BusinessDirectory extends Observable {
 	BusinessDownloader downloader;
 	Boolean directoryLoaded = false;
 	public JSONObject mDirectory = null;
+	public JSONArray mDirectoryArray = null;
 	
 	public BusinessDirectory() {
 		downloader = new BusinessDownloader();
@@ -41,10 +42,46 @@ public class BusinessDirectory extends Observable {
 	public Boolean isDirectoyLoaded() {
 		return directoryLoaded;
 	}
+	public String getName(int index) throws JSONException {
+		return mDirectoryArray.getJSONObject(index).getString("Name");
+	}
+	public String getPhone(int index) throws JSONException {
+		return mDirectoryArray.getJSONObject(index).getString("Phone Number");
+	}
+	public String getURL(int index) throws JSONException {
+		return mDirectoryArray.getJSONObject(index).getString("Website");
+	}
+	public String getPercent(int index) throws JSONException {
+		return mDirectoryArray.getJSONObject(index).getString("Percent String");
+	}
+	public String getAllSales(int index) throws JSONException {
+		return mDirectoryArray.getJSONObject(index).getString("All Sales");
+	}
+	public Boolean getDay(int index, String day) throws JSONException {
+		return mDirectoryArray.getJSONObject(index).getString(day).contentEquals("1") ? true : false;
+	}
+	public String getAddress(int index) throws JSONException {
+		return mDirectoryArray.getJSONObject(index).getString("Address");
+	}
+	public double getLat(int index) throws JSONException {
+		return mDirectoryArray.getJSONObject(index).getDouble("Latitude");
+	}
+	public double getLong(int index) throws JSONException {
+		return mDirectoryArray.getJSONObject(index).getDouble("Longitude");
+	}
+	public String getNote(int index) throws JSONException {
+		return mDirectoryArray.getJSONObject(index).getString("Notes");
+	}
 	
 	public void saveDataAndNotifyObservers(JSONObject theDirectory) {
 		mDirectory = theDirectory;
 		directoryLoaded = true;
+		try {
+			mDirectoryArray = mDirectory.getJSONArray("business");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         setChanged();
         notifyObservers();
 	}

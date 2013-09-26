@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.ListFragment;
 import android.content.Context;
 import android.database.Cursor;
@@ -81,16 +82,19 @@ public class SearchFragment extends ListFragment {
 			}
             String name= null, 
             		address = null;
+            int	id = 0;
 			try {
 				name = json_data.getString("Name");
 				address = json_data.getString("Address");
+				id = json_data.getInt("id");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			Map<String, String> datum  = new HashMap<String, String>(2);
+			Map<String, String> datum  = new HashMap<String, String>(3);
 			datum.put("Name", name);
 			datum.put("Address", address);
+			datum.put("Id", String.valueOf(id));
 			data.add(datum);
         }
 
@@ -126,15 +130,28 @@ public class SearchFragment extends ListFragment {
 		return fragment;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		// TODO Auto-generated method stub
 		System.out.printf("Position clicked: %d", position);
-		Object foo = getListAdapter().getItem(position);
+		HashMap<String,String> theSelectedItem = null;
+		if (getListAdapter().getItem(position) instanceof HashMap) {
+			 theSelectedItem = (HashMap<String, String>) getListAdapter().getItem(position);
+		}
+		int theSelectedId = Integer.parseInt(theSelectedItem.get("Id"));
 		
-		//super.onListItemClick(l, v, position, id);
+		// open the detail fragment
+		Fragment fragment = new DetailFragment();
+		Bundle args = new Bundle();
+		args.putInt("Index", theSelectedId-1);
+		fragment.setArguments(args);
+		
+		FragmentManager fragmentManager = getFragmentManager();
+		fragmentManager.beginTransaction()
+				.replace(R.id.content_frame, fragment)
+				.addToBackStack(null)
+				.commit();
 	}
 
-	
-	
 }
