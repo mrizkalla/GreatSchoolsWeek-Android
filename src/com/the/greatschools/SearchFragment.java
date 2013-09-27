@@ -1,57 +1,34 @@
 package com.the.greatschools;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.ListFragment;
+
 import android.content.Context;
-import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ListFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 
 public class SearchFragment extends ListFragment {
-
-	String[] countries = new String[] {
-	        "India",
-	        "Pakistan",
-	        "Sri Lanka",
-	        "China",
-	        "Bangladesh",
-	        "Nepal",
-	        "Afghanistan",
-	        "North Korea",
-	        "South Korea",
-	        "Japan"
-	    };
     
 	private BusinessDirectory mBD;
     private SimpleAdapter mSimpleAdapter;
@@ -142,7 +119,7 @@ public class SearchFragment extends ListFragment {
 		int theSelectedId = Integer.parseInt(theSelectedItem.get("Id"));
 		
 		// open the detail fragment
-		Fragment fragment = new DetailFragment();
+		Fragment fragment = (Fragment) new DetailFragment();
 		Bundle args = new Bundle();
 		args.putInt("Index", theSelectedId-1);
 		fragment.setArguments(args);
@@ -152,6 +129,10 @@ public class SearchFragment extends ListFragment {
 				.replace(R.id.content_frame, fragment)
 				.addToBackStack(null)
 				.commit();
+		
+		//Dismiss the keyboard if it is up
+		InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
 	}
 
 }

@@ -3,30 +3,29 @@ package com.the.greatschools;
 import java.util.Observable;
 import java.util.Observer;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import com.the.greatschools.R;
 
-import android.app.Activity;
-import android.app.Fragment;
+
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 
-public class MainActivity extends Activity implements Observer {
+public class MainActivity extends FragmentActivity implements Observer {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -133,11 +132,14 @@ public class MainActivity extends Activity implements Observer {
 		case 0:
 			fragment = new SearchFragment();
 			break;
+		case 1:
+			fragment = new CategoryContainerFragment();
+			break;
 		default:
 			fragment = new SearchFragment();
 		}
 
-		FragmentManager fragmentManager = getFragmentManager();
+		FragmentManager fragmentManager = getSupportFragmentManager();
 		fragmentManager.beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();
 
@@ -175,7 +177,9 @@ public class MainActivity extends Activity implements Observer {
 	@Override
 	public void update(Observable observable, Object data) {
 		// this is where we would take down the splash screen and then call the first fragment
-        selectItem(0);
+		ImageView splash = (ImageView)  this.findViewById(R.id.splash);
+		splash.setVisibility(View.GONE);
+		selectItem(0);
 	}
 }
 

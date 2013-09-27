@@ -4,7 +4,9 @@
 
     <string-array name="nav_array">
         <item>Search</item>
-        <item>Browse</item>
+        <item>Browse By Category</item>
+        <item>Browse By Day</item>
+        <item>Browse By Percent</item>
         <item>About</item>
         <item>Map</item>
     </string-array>

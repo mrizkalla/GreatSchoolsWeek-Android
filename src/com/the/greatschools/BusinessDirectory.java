@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.Observable;
 
 import org.apache.http.HttpEntity;
@@ -41,6 +42,15 @@ public class BusinessDirectory extends Observable {
 	
 	public Boolean isDirectoyLoaded() {
 		return directoryLoaded;
+	}
+	public int getLength() throws JSONException {
+		return mDirectory.getJSONArray("business").length();
+	}
+	public int getID(int index) throws JSONException {
+		return mDirectoryArray.getJSONObject(index).getInt("id");
+	}
+	public String getCategory(int index) throws JSONException {
+		return mDirectoryArray.getJSONObject(index).getString("Category");
 	}
 	public String getName(int index) throws JSONException {
 		return mDirectoryArray.getJSONObject(index).getString("Name");

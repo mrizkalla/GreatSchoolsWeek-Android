@@ -1,22 +1,19 @@
 package com.the.greatschools;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +25,7 @@ public class DetailFragment extends Fragment {
 	private GoogleMap map;
 	private MapView mapview;
 	private int index;
+	private BusinessDirectory mBD;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,7 +47,7 @@ public class DetailFragment extends Fragment {
 		mapview.onCreate(savedInstanceState);
 		TextView note = (TextView) fragment.findViewById(R.id.notes);
 		
-        BusinessDirectory mBD = ((MainActivity) getActivity()).getBusinessDirectory();        
+        mBD = ((MainActivity) getActivity()).getBusinessDirectory();        
         index = getArguments().getInt("Index");
 
 		try {
@@ -83,7 +81,6 @@ public class DetailFragment extends Fragment {
 			address.setOnClickListener(new View.OnClickListener() {
 			    public void onClick(View v) {
 			        // Do something in response to button click
-			        BusinessDirectory mBD = ((MainActivity) getActivity()).getBusinessDirectory();        
 			    	String url=null;
 					try {
 						url = "http://maps.google.com/maps?daddr="+mBD.getLat(index)+","+mBD.getLong(index)+"&mode=driving";
