@@ -46,6 +46,9 @@ public class BusinessDirectory extends Observable {
 	public int getLength() throws JSONException {
 		return mDirectory.getJSONArray("business").length();
 	}
+	public String getBusinessJSONString(int index) throws JSONException {
+		return mDirectoryArray.getJSONObject(index).toString();
+	}
 	public int getID(int index) throws JSONException {
 		return mDirectoryArray.getJSONObject(index).getInt("id");
 	}
@@ -60,6 +63,9 @@ public class BusinessDirectory extends Observable {
 	}
 	public String getURL(int index) throws JSONException {
 		return mDirectoryArray.getJSONObject(index).getString("Website");
+	}
+	public String getPercentInt(int index) throws JSONException {
+		return mDirectoryArray.getJSONObject(index).getString("PercentInt");
 	}
 	public String getPercent(int index) throws JSONException {
 		return mDirectoryArray.getJSONObject(index).getString("Percent String");

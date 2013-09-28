@@ -26,6 +26,7 @@ import android.widget.ListView;
 
 
 public class MainActivity extends FragmentActivity implements Observer {
+	
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -127,6 +128,7 @@ public class MainActivity extends FragmentActivity implements Observer {
 	private void selectItem(int position) {
 		// update the main content by replacing fragments
 		Fragment fragment;
+		Bundle args = new Bundle();
 		
 		switch (position) {
 		case 0:
@@ -134,6 +136,18 @@ public class MainActivity extends FragmentActivity implements Observer {
 			break;
 		case 1:
 			fragment = new CategoryContainerFragment();
+			args.putInt("Browse", CategoryPagerAdapter.CATEGORY_VAL);
+			fragment.setArguments(args);			
+			break;
+		case 2:
+			fragment = new CategoryContainerFragment();
+			args.putInt("Browse", CategoryPagerAdapter.DAYS_VAL);
+			fragment.setArguments(args);			
+			break;
+		case 3:
+			fragment = new CategoryContainerFragment();
+			args.putInt("Browse", CategoryPagerAdapter.PERCENT_VAL);
+			fragment.setArguments(args);			
 			break;
 		default:
 			fragment = new SearchFragment();

@@ -7,7 +7,9 @@ import java.util.Map;
 
 import org.json.JSONException;
 
+
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -29,7 +31,12 @@ public class CategoryFragment extends ListFragment {
 			Bundle savedInstanceState) {
 
 		View fragment = inflater.inflate(R.layout.category, container, false);
+		Bundle args = getArguments();
+		String category = args.getString("Category");
+		int mode = args.getInt(CategoryPagerAdapter.BROWSE_KEY);
+		String percentInt = args.getString(CategoryPagerAdapter.PERCENTINT_KEY);
 
+		
 		mBD = ((MainActivity) getActivity()).getBusinessDirectory();
 		try {
 
@@ -37,8 +44,11 @@ public class CategoryFragment extends ListFragment {
 			for (int i = 0; i < mBD.getLength(); i++) {
 				String name = null, address = null;
 				int id = 0;
-
-				if (mBD.getCategory(i).contentEquals("Restaurants")) {
+				
+				if ((mode == CategoryPagerAdapter.CATEGORY_VAL && mBD.getCategory(i).contentEquals(category)) ||
+						(mode == CategoryPagerAdapter.DAYS_VAL && mBD.getDay(i, category)) ||
+						(mode == CategoryPagerAdapter.PERCENT_VAL && mBD.getPercentInt(i).contains(percentInt)))
+				{
 					name = mBD.getName(i);
 					address = mBD.getAddress(i);
 					id = mBD.getID(i);
@@ -48,7 +58,8 @@ public class CategoryFragment extends ListFragment {
 					datum.put("Address", address);
 					datum.put("Id", String.valueOf(id));
 					data.add(datum);
-				}
+				} 
+				
 			}
 
 			mSimpleAdapter = new SimpleAdapter(inflater.getContext(), data,
@@ -74,19 +85,28 @@ public class CategoryFragment extends ListFragment {
 			 theSelectedItem = (HashMap<String, String>) getListAdapter().getItem(position);
 		}
 		int theSelectedId = Integer.parseInt(theSelectedItem.get("Id"));
-		
+
+	    Intent intent = new Intent(getActivity(), DetailActivity.class);
+	    try {
+			intent.putExtra("business", mBD.getBusinessJSONString(theSelectedId-1));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    getActivity().startActivity(intent);
+	    
 		// open the detail fragment
-		Fragment fragment = new DetailFragment();
+		/*Fragment fragment = new DetailFragment();
 		Bundle args = new Bundle();
 		args.putInt("Index", theSelectedId-1);
 		fragment.setArguments(args);
 		
-		FragmentManager fragmentManager = getFragmentManager();
+		FragmentManager fragmentManager = getChildFragmentManager();
 		fragmentManager.beginTransaction()
-				.replace(R.id.content_frame, fragment)
+				.replace(android.R.id.content, fragment)
 				.addToBackStack(null)
 				.commit();
-		
+		*/
 		//Dismiss the keyboard if it is up
 		InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
