@@ -1,5 +1,6 @@
 package com.the.greatschools;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import org.json.JSONException;
@@ -15,6 +16,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -44,7 +46,9 @@ public class DetailActivity extends Activity {
 		mapview = (MapView) findViewById(R.id.map);
 		mapview.onCreate(savedInstanceState);
 		TextView note = (TextView) findViewById(R.id.notes);
-		
+		ActionBar actionBar = getActionBar();
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+		actionBar.setHomeButtonEnabled(true);
 
 		try {
 	        mBD = new JSONObject(getIntent().getStringExtra("business"));        
@@ -113,6 +117,18 @@ public class DetailActivity extends Activity {
 		return;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            // app icon in action bar clicked; go home
+	            this.finish();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	
 	@Override
 	public void onDestroy() {
 		super.onDestroy();

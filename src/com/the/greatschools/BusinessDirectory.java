@@ -109,7 +109,6 @@ public class BusinessDirectory extends Observable {
     		
     		String theBusinessData = readBusinessData();
     		System.out.print(theBusinessData);
-    		Log.e("BusinessCursorLoader", theBusinessData);
     		JSONObject jsonObject = null;
 			try {
 				jsonObject = new JSONObject(theBusinessData);

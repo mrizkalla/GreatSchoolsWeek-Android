@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -117,8 +118,17 @@ public class SearchFragment extends ListFragment {
 			 theSelectedItem = (HashMap<String, String>) getListAdapter().getItem(position);
 		}
 		int theSelectedId = Integer.parseInt(theSelectedItem.get("Id"));
-		
-		// open the detail fragment
+
+	    Intent intent = new Intent(getActivity(), DetailActivity.class);
+	    try {
+			intent.putExtra("business", mBD.getBusinessJSONString(theSelectedId-1));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    getActivity().startActivity(intent);
+	    
+/*		// open the detail fragment
 		Fragment fragment = (Fragment) new DetailFragment();
 		Bundle args = new Bundle();
 		args.putInt("Index", theSelectedId-1);
@@ -129,7 +139,7 @@ public class SearchFragment extends ListFragment {
 				.replace(R.id.content_frame, fragment)
 				.addToBackStack(null)
 				.commit();
-		
+*/		
 		//Dismiss the keyboard if it is up
 		InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
