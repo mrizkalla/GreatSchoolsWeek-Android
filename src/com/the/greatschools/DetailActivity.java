@@ -55,7 +55,13 @@ public class DetailActivity extends Activity {
 
 			// set the detail section
 			name.setText(mBD.getString("Name"));
-			phone.setText(mBD.getString("Phone Number"));
+			// set the days section
+			if (mBD.getString("Phone Number").contentEquals("-")) {
+				phone.setText("");
+			} else {
+				phone.setText(mBD.getString("Phone Number"));
+			}
+
 			url.setText(mBD.getString("Website"));
 			percent.setText(mBD.getString("Percent String"));
 			if (mBD.getString("All Sales").contentEquals("Yes"))
@@ -97,11 +103,11 @@ public class DetailActivity extends Activity {
 			});
 			// Needs to call MapsInitializer before doing any CameraUpdateFactory calls
 			map = mapview.getMap();
-			try {
+			//try {
 				MapsInitializer.initialize(this);
-			} catch (GooglePlayServicesNotAvailableException e) {
-				e.printStackTrace();
-			}
+			//} catch (GooglePlayServicesNotAvailableException e) {
+			//	e.printStackTrace();
+			//}
 			
 			LatLng mapCenter = new LatLng(mBD.getDouble("Latitude"), mBD.getDouble("Longitude"));
 			map.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 14));

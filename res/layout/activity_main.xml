@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:scaleType="fitCenter"
-            android:src="@drawable/splash_screen2013" />
+            android:src="@drawable/splash_screen2014" />
 
         <!--
          As the main content view, the view below consumes the entire

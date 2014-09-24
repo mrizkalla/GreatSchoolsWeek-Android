@@ -95,11 +95,11 @@ public class DetailFragment extends Fragment {
 			});
 			// Needs to call MapsInitializer before doing any CameraUpdateFactory calls
 			map = mapview.getMap();
-			try {
+			//try {
 				MapsInitializer.initialize(this.getActivity());
-			} catch (GooglePlayServicesNotAvailableException e) {
-				e.printStackTrace();
-			}
+			//} catch (GooglePlayServicesNotAvailableException e) {
+			//	e.printStackTrace();
+			//}
 			
 			LatLng mapCenter = new LatLng(mBD.getLat(index), mBD.getLong(index));
 			map.moveCamera(CameraUpdateFactory.newLatLngZoom(mapCenter, 14));

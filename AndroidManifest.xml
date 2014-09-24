@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.the.greatschools"
-    android:versionCode="3"
-    android:versionName="3.0" >
+    android:versionCode="4"
+    android:versionName="4.0" >
 
     <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="18" />
+        android:minSdkVersion="14"
+        android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -45,6 +45,9 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCtaXONW3Ptfj-IywCVVTNmDaSptxrBGBA" />
+        <meta-data 
+            android:name="com.google.android.gms.version"
+        	android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

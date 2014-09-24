@@ -127,7 +127,8 @@ public class BusinessDirectory extends Observable {
 		public String readBusinessData() {
     		StringBuilder builder = new StringBuilder();
     		HttpClient client = new DefaultHttpClient();
-    		HttpGet httpGet = new HttpGet("https://dl.dropbox.com/s/fdgus4o4llyvl9r/gsw-2.json?dl=1");
+    		//HttpGet httpGet = new HttpGet("https://dl.dropbox.com/s/fdgus4o4llyvl9r/gsw-2.json?dl=1");
+    		HttpGet httpGet = new HttpGet("https://dl.dropbox.com/s/0zz5ytdyqvsuscm/gsw-2014.json?dl=1");
     		try {
     			HttpResponse response = client.execute(httpGet);
     			StatusLine statusLine = response.getStatusLine();

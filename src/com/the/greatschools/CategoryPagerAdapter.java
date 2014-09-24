@@ -27,7 +27,7 @@ public class CategoryPagerAdapter extends FragmentPagerAdapter {
 	
 	private String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
 
-	private String[] percents = {"All Sales", "10% or under", "15%", "20%", "25%", "30%", "40% or over", "Fixed Amount"};
+	private String[] percents = {"All Sales", "10% or under", "15%", "20%", "25%", "30% or over"};
 	private String[] category;
 	
 	public CategoryPagerAdapter(FragmentManager fm, int mode) {
